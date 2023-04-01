@@ -12,6 +12,7 @@ Concepts included in this demo:
   * Testing automation
   * Monorepo
   * Git branchs management
+  * Environments --> PROD, DEV, QA 
 * Hexagonal Architecture - Ports & Adapters
   * Screaming Architecture
   * Vertical Slicing
