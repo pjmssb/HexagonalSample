@@ -1,8 +1,8 @@
 const { v4: uuidv4 } = require('uuid');
-const db = require('TaskRepository');
- const log = require('TaskLoggingService');
+//const db = require('TaskRepository');
+//const log = require('TaskLoggingService');
 
-class Task {
+module.exports = class Task {
   constructor({title, description = "", due = null, status = "pending"}) {
     this.id = uuidv4();
     this.title = String(title).trim();
@@ -12,11 +12,12 @@ class Task {
     this.createdAt = new Date();
     this.updatedAt = new Date();
     if (!this.isValid()) {
-
+        console.log()
     }
     
   }
 
+  /*
   function isValid() {
     if ((this.createdAt > this.dueDate) || 
         (this.createdAt > this.updatedAt) ||
@@ -27,6 +28,7 @@ class Task {
             return false; 
     };
     return true;
-  }
+  } */
 
 }
+
