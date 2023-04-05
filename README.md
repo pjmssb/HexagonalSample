@@ -10,6 +10,7 @@ The project will manage a To Do List, this is pretty simple logic. But we will i
 Concepts included in this demo:
 
 * SDLC good practices
+  * Test Driven Development
   * Unit Testing
   * Testing automation
   * Monorepo
