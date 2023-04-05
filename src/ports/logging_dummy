@@ -1,0 +1,13 @@
+class LoggingDummy {
+
+  constructor() {
+    this.whoAmI = "LoggingDummy"
+  }
+
+  async write(message) {
+    console.log('LogginDummy: ' + message);
+    return true;
+  }
+}
+
+module.exports = LoggingDummy;
