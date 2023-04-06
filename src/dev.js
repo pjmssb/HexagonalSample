@@ -3,7 +3,7 @@ const Task = require('./model/task.js');
 
 const createTask = async () => {  
   const title = 'The Title';
-  const description = '  ';
+  const description = 'Esta es la descripción';
   const due = '2023-06-02';
   const testTaskObject = {title, description, due};
 

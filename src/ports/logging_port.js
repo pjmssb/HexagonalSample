@@ -1,7 +1,10 @@
-const fs = require('fs');
-const path = require('path');
+
 const loggingAdapter = require('./logging_dummy'); 
-// const loggingAdapter = require('./logging_localFile');
+/*
+* const loggingAdapter = require('./logging_localFile');
+* const loggingAdapter = require('./logging_postgresSQL');
+* const loggingAdapter = require('./logging_dynamoDB');
+*/
 
 
 class Logging {

@@ -1,5 +1,7 @@
 const { v4: uuidv4 } = require('uuid');
-const Logging = require("../ports/logging_port.js")
+const Logging = require("../ports/logging_port.js");
+const Repository = require("../ports/repository_port.js");
+
 
 class Task {
 
@@ -11,11 +13,16 @@ class Task {
     this.createdAt = new Date();
     this.updatedAt = new Date();
     const logging = new Logging();
+    const repository = new Repository();
 
-    if (!this.isValid()) {
-
-      logging.newEntry("Something is rotten");
+    if (this.isValid()) {
+      repository.create(this);
+      logging.newEntry("Tarea creada");
+    } else {
+      logging.newEntry("Something is rotten" + JSON.stringify(this));
     }
+
+
   }
 
   isValid() {
