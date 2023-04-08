@@ -4,38 +4,60 @@ const Repository = require("../ports/repository_port.js");
 
 
 class Task {
-
-  constructor({title, description = "", due = null}) {
+  constructor({title, description = "", dueDate = null}) {
     this.id = uuidv4();
     this.title = String(title).trim();
     this.description = String(description).trim();
-    this.dueDate = new Date(due);
-    this.createdAt = new Date();
-    this.updatedAt = new Date();
-    const logging = new Logging();
-    const repository = new Repository();
+    this.dueDate = new Date(dueDate);
+    let _createdAt = new Date();
+    let _updatedAt = new Date();
+    const _logging = new Logging();
+    const _repository = new Repository();
 
-    if (this.isValid()) {
-      repository.createTask(this);
-      logging.newEntry("Tarea creada");
+    if (this.isValid(this)) {
+      _repository.create(this);
+      _logging.newEntry("Tarea creada");
       return true;
     } else {
-      logging.newEntry("Something is rotten" + JSON.stringify(this));
+      _logging.newEntry("Something is rotten - task not stored" + JSON.stringify(this));
       return false;
     }
-
-
   }
 
-  isValid() {
-    if ((this.title.length === 0) 
-        || (this.description.length === 0) 
-        || (Object.is(this.dueDate, null))
-        || (this.dueDate < this.createdAt)
-        || (this.createdAt < this.updatedAt)
+  
+  updateTask({title, description = "", dueDate = null}) {
+    if (!this.isValid({title, description, dueDate})) {
+      _logging.newEntry('Task: valores de actualización inválidos');
+      return false;
+    }
+    try {
+      this.title = title;
+      this.description = description;
+      this.dueDate = dueDate;
+      _repository.update(this);
+    } catch (error) {
+      Logging.newEntry('Task - update: Algo salio mal')
+      return false;
+    }
+    
+    return true;
+  }
+
+
+
+
+
+
+  isValid(task) {
+    if ((task.title.length === 0) 
+        || (task.description.length === 0) 
+        || (Object.is(task.dueDate, null))
+        || (task.dueDate < Date())
     ) {return false;};
     return true;
   }
+
+
 
   
 

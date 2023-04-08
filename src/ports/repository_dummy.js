@@ -1,13 +1,12 @@
 class RepositoryDummy {
 
-    constructor(task) {
-      this.task = task;
+    constructor() {      
       this.whoAmI = "RepositoryDummy"
-      console.log('RepositoryDummy-Objeto Creado: ' + JSON.stringify(task));
+      console.log('RepositoryDummy-Objeto Creado. Listo para simular persistencia');
     }
   
     async create(task) {
-      console.log('RepositoryDummy-Creado: ' + JSON.stringify(task));
+      console.log('RepositoryDummy-Crear: ' + JSON.stringify(task));
       return true;
     }
 
