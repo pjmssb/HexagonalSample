@@ -16,10 +16,12 @@ class Task {
     const repository = new Repository();
 
     if (this.isValid()) {
-      repository.create(this);
+      repository.createTask(this);
       logging.newEntry("Tarea creada");
+      return true;
     } else {
       logging.newEntry("Something is rotten" + JSON.stringify(this));
+      return false;
     }
 
 
@@ -34,6 +36,10 @@ class Task {
     ) {return false;};
     return true;
   }
+
+  
+
+
 }
 
 
