@@ -11,10 +11,10 @@ class Task {
     this.dueDate = new Date(dueDate);
     let _createdAt = new Date();
     let _updatedAt = new Date();
-    const _logging = new Logging();
-    const _repository = new Repository();
+    this._logging = new Logging();
+    this._repository = new Repository();
 
-    if (this.isValid(this)) {
+    if (this._isValid(this)) {
       _repository.create(this);
       _logging.newEntry("Tarea creada");
       return true;
@@ -24,31 +24,36 @@ class Task {
     }
   }
 
-  
   updateTask({title, description = "", dueDate = null}) {
-    if (!this.isValid({title, description, dueDate})) {
-      _logging.newEntry('Task: valores de actualización inválidos');
-      return false;
-    }
     try {
-      this.title = title;
-      this.description = description;
-      this.dueDate = dueDate;
+      if ('title' in arguments[0] && typeof arguments[0].title === 'string') {
+        this.description = arguments[0].description;
+      };
+
+      if ('description' in arguments[0] && typeof arguments[0].description === 'string') {
+        this.description = arguments[0].description;
+      };
+
+      if ('dueDate' in arguments[0] && arguments[0].dueDate instanceof Date) {
+        this.dueDate = arguments[0].dueDate;
+      };
+
+      if (!this._isValid(this)) {
+        _logging.newEntry('Task - update: El objeto no es válido y no se guardar en repositorio.')
+      };
+      
+      this._updatedAt = Date();
       _repository.update(this);
+
     } catch (error) {
-      Logging.newEntry('Task - update: Algo salio mal')
+      _logging.newEntry('Task - update: Algo salio mal')
       return false;
     }
     
     return true;
   }
 
-
-
-
-
-
-  isValid(task) {
+  _isValid(task) {
     if ((task.title.length === 0) 
         || (task.description.length === 0) 
         || (Object.is(task.dueDate, null))
@@ -56,11 +61,6 @@ class Task {
     ) {return false;};
     return true;
   }
-
-
-
-  
-
 
 }
 
